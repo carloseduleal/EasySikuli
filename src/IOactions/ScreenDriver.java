@@ -26,6 +26,7 @@ public class ScreenDriver {
 	double defaultSimilarity = 0.70;
 	PostFind find;
 	PostWait wait;
+	int implicityWait = 2000;
 
 	public PostWait waitFor(String imagePath, int timeInSeconds,
 			double similarity) {
@@ -76,7 +77,6 @@ public class ScreenDriver {
 
 		ScreenRegion myScreen = myDesktop;
 		myScreen = myDesktop.find(imageTarget);
-		myScreen.getCenter();
 
 		// PosFind
 		find = new PostFind();
