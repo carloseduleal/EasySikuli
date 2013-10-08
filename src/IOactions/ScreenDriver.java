@@ -24,7 +24,6 @@ public class ScreenDriver {
 	PostFind find;
 	PostWait wait;
 
-	
 	public PostWait waitFor(String imagePath, int timeInSeconds, double similarity) {
 		int timeResult = 0;
 		ScreenRegion myDesktop = new DesktopScreenRegion();
@@ -46,12 +45,8 @@ public class ScreenDriver {
 	}
 
 	public PostWait waitFor(String imagePath, int timeInSeconds) {
-		waitFor(imagePath, timeInSeconds, defaultSimilarity);
-		
-		//PosWaitAction
-		wait.setImagePath(imagePath);
-		wait.setTimeInSeconds(timeInSeconds);
-		wait.setSimilarity(defaultSimilarity);
+		wait = waitFor(imagePath, timeInSeconds, defaultSimilarity);
+	
 		return wait;
 	}
 
@@ -76,11 +71,8 @@ public class ScreenDriver {
 	}
 
 	public PostFind findImage(String imagePath) {
-		findImage(imagePath, defaultSimilarity);
+		find = findImage(imagePath, defaultSimilarity);
 		
-		//PosFind
-		find.setImagePath(imagePath);
-		find.setSimilarity(defaultSimilarity);
 		return find;
 	}
 
