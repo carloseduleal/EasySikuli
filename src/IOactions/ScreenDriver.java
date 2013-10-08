@@ -1,0 +1,85 @@
+package IOactions;
+
+import java.io.File;
+
+import org.sikuli.api.DesktopScreenRegion;
+import org.sikuli.api.ImageTarget;
+import org.sikuli.api.ScreenRegion;
+import org.sikuli.api.Target;
+import org.sikuli.api.robot.Keyboard;
+import org.sikuli.api.robot.Mouse;
+import org.sikuli.api.robot.desktop.DesktopKeyboard;
+import org.sikuli.api.robot.desktop.DesktopMouse;
+import org.sikuli.api.visual.Canvas;
+import org.sikuli.api.visual.DesktopCanvas;
+
+import IOactions.SecAction.PostFind;
+import IOactions.SecAction.PostWait;
+
+public class ScreenDriver {
+
+	Mouse mouse = new DesktopMouse();
+	Keyboard keyboard = new DesktopKeyboard();
+	double defaultSimilarity = 0.70;
+
+	public PostWait waitFor(String imagePath, int timeInSeconds, double similarity) {
+		int timeResult = 0;
+		ScreenRegion myDesktop = new DesktopScreenRegion();
+		File image = new File(imagePath);
+		Target imageTarget = new ImageTarget(image);
+
+		ScreenRegion aux = myDesktop;
+		timeResult = timeInSeconds * 1000;
+		aux.wait(imageTarget, timeResult);
+		aux = myDesktop.find(imageTarget);
+		
+		//PosWaitAction
+		PostWait wait = new PostWait();
+		wait.setImagePath(imagePath);
+		wait.setTimeInSeconds(timeInSeconds);
+		wait.setSimilarity(similarity);
+		return wait;
+	}
+
+	public PostWait waitFor(String imagePath, int timeInSeconds) {
+		waitFor(imagePath, timeInSeconds, defaultSimilarity);
+
+		//PosWaitAction
+		PostWait wait = new PostWait();
+		wait.setImagePath(imagePath);
+		wait.setTimeInSeconds(timeInSeconds);
+		wait.setSimilarity(defaultSimilarity);
+		return wait;
+	}
+
+	public PostFind findImage(String imagePath, double similarity) {
+		ScreenRegion myDesktop = new DesktopScreenRegion();
+		File image = new File(imagePath);
+		Target imageTarget = new ImageTarget(image);
+		imageTarget.setMinScore(similarity);
+
+		ScreenRegion myScreen = myDesktop;
+		myScreen = myDesktop.find(imageTarget);
+	
+		Canvas canvas = new DesktopCanvas();
+		canvas.addBox(myScreen).withLineWidth(3);
+		canvas.display(5);
+		
+		//PosFindAction
+		PostFind find = new PostFind();
+		find.setImagePath(imagePath);
+		find.setSimilarity(similarity);
+		return find;
+	}
+
+	public PostFind findImage(String imagePath) {
+		findImage(imagePath, defaultSimilarity);
+		
+		//PosFindAction
+		PostFind find = new PostFind();
+		find.setImagePath(imagePath);
+		find.setSimilarity(defaultSimilarity);
+		return find;
+	}
+
+}
