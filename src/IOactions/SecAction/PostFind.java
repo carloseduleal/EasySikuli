@@ -49,7 +49,7 @@ public class PostFind {
 		click();
 		keyboard.type(text);
 	}
-
+	
 	public void rightClick() {
 		mouse = new DesktopMouse();
 		ScreenRegion myDesktop = new DesktopScreenRegion();
