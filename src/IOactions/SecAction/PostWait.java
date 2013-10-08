@@ -85,6 +85,7 @@ public class PostWait {
 	
 		ScreenRegion aux = myDesktop.wait(imageTarget, implicityWait);
 		mouse.drop(aux.getCenter());
+		aux = myDesktop.wait(imageTarget, implicityWait);
 	}
 	
 	public void type(String text){

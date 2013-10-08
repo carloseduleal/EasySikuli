@@ -88,10 +88,11 @@ public class PostFind {
 		aux = myDesktop.wait(imageTarget, timeResult);
 	}
 
-	public void dragTo(String finalImagePath) {
+	public PostDragTo dragTo(String finalImagePath) {
 		ScreenRegion myDragScreen = new DesktopScreenRegion();
 		File dragImage = new File(imagePath);
 		Target targetDragImage = new ImageTarget(dragImage);
+		targetDragImage.setMinScore(similarity);
 
 		ScreenRegion myDragRegion = myDragScreen.wait(targetDragImage, implicityWait);
 		mouse.drag(myDragRegion.getCenter());
@@ -99,9 +100,16 @@ public class PostFind {
 		ScreenRegion myDropScreen = new DesktopScreenRegion();
 		File dropImage = new File(finalImagePath);
 		Target targetDropImage = new ImageTarget(dropImage);
+		targetDropImage.setMinScore(similarity);
 
 		ScreenRegion myDropRegion = myDropScreen.wait(targetDropImage, implicityWait);
 		mouse.drop(myDropRegion.getCenter());
+		
+		PostDragTo dragTo = new PostDragTo();
+		
+		dragTo.setImagePath(finalImagePath);
+		dragTo.setSimilarity(similarity);
+		return dragTo;
 	}
 	
 	
