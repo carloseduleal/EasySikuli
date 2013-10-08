@@ -91,6 +91,5 @@ public class PostWait {
 	public void type(String text){
 		click();
 		keyboard.type(text);
-		
 	}
 }

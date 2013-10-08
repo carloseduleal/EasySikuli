@@ -26,10 +26,9 @@ public class ScreenDriver {
 	double defaultSimilarity = 0.70;
 	PostFind find;
 	PostWait wait;
-	int implicityWait = 2000;
+	int implicityWait = 20000;
 
-	public PostWait waitFor(String imagePath, int timeInSeconds,
-			double similarity) {
+	public PostWait waitFor(String imagePath, int timeInSeconds,double similarity) {
 		int timeResult = 0;
 		ScreenRegion myDesktop = new DesktopScreenRegion();
 		File image = new File(imagePath);
@@ -40,13 +39,6 @@ public class ScreenDriver {
 		timeResult = timeInSeconds * 1000;
 		aux.wait(imageTarget, timeResult);
 		aux = myDesktop.find(imageTarget);
-
-		try {
-			if (aux == null)
-				;
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
 
 		wait = new PostWait();
 		wait.setImagePath(imagePath);
@@ -76,6 +68,7 @@ public class ScreenDriver {
 		imageTarget.setMinScore(similarity);
 
 		ScreenRegion myScreen = myDesktop;
+		myScreen.wait(imageTarget, implicityWait);
 		myScreen = myDesktop.find(imageTarget);
 
 		// PosFind
@@ -101,6 +94,7 @@ public class ScreenDriver {
 		imageTarget.setMinScore(defaultSimilarity);
 
 		ScreenRegion myScreen = myDesktop;
+		myScreen.wait(imageTarget, implicityWait);
 		myScreen = myDesktop.find(imageTarget);
 
 		Canvas canvas = new DesktopCanvas();
@@ -127,11 +121,11 @@ public class ScreenDriver {
 	}
 
 	public void assertImageExists(String expectedImagePath, double similarity) {
-		assertImageExists(expectedImagePath, similarity, 20);
+		assertImageExists(expectedImagePath, similarity, implicityWait);
 	}
 
 	public void assertImageExists(String expectedImagePath) {
-		assertImageExists(expectedImagePath, defaultSimilarity, 20);
+		assertImageExists(expectedImagePath, defaultSimilarity, implicityWait);
 	}
 
 	public void screenShot() {

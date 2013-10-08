@@ -113,6 +113,4 @@ public class PostFind {
 		dragTo.setSimilarity(similarity);
 		return dragTo;
 	}
-	
-	
 }
