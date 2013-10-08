@@ -40,7 +40,13 @@ public class ScreenDriver {
 		aux.wait(imageTarget, timeResult);
 		aux = myDesktop.find(imageTarget);
 
-		// PosWaitAction
+		try {
+			if (aux == null)
+				;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
 		wait = new PostWait();
 		wait.setImagePath(imagePath);
 		wait.setTimeInSeconds(timeInSeconds);
@@ -56,6 +62,10 @@ public class ScreenDriver {
 		wait.setTimeInSeconds(timeInSeconds);
 		wait.setSimilarity(defaultSimilarity);
 		return wait;
+	}
+	
+	public void type(String text){
+		keyboard.type(text);
 	}
 
 	public PostFind findImage(String imagePath, double similarity) {
@@ -98,7 +108,8 @@ public class ScreenDriver {
 		canvas.display(5);
 	}
 
-	public void assertImageExists(String expectedImagePath, double similarity, int timeInSeconds) {
+	public void assertImageExists(String expectedImagePath, double similarity,
+			int timeInSeconds) {
 		int timeResult;
 		ScreenRegion myDesktop = new DesktopScreenRegion();
 		File image = new File(expectedImagePath);
@@ -106,7 +117,7 @@ public class ScreenDriver {
 		imageTarget.setMinScore(similarity);
 
 		ScreenRegion myScreen = myDesktop;
-		timeResult = timeInSeconds *  1000;
+		timeResult = timeInSeconds * 1000;
 		myScreen.wait(imageTarget, timeResult);
 		myScreen = myDesktop.find(imageTarget);
 		if (myScreen == null) {
@@ -114,11 +125,11 @@ public class ScreenDriver {
 		}
 		Assert.assertNotNull(myScreen);
 	}
-	
+
 	public void assertImageExists(String expectedImagePath, double similarity) {
 		assertImageExists(expectedImagePath, similarity, 20);
 	}
-	
+
 	public void assertImageExists(String expectedImagePath) {
 		assertImageExists(expectedImagePath, defaultSimilarity, 20);
 	}
@@ -126,5 +137,5 @@ public class ScreenDriver {
 	public void screenShot() {
 		keyboard = new DesktopKeyboard();
 		keyboard.type(Key.PAUSE);
-	}	
+	}
 }
