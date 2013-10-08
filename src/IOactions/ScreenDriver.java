@@ -45,8 +45,12 @@ public class ScreenDriver {
 	}
 
 	public PostWait waitFor(String imagePath, int timeInSeconds) {
-		wait = waitFor(imagePath, timeInSeconds, defaultSimilarity);
-	
+		waitFor(imagePath, timeInSeconds, defaultSimilarity);
+		
+		wait = new PostWait();
+		wait.setImagePath(imagePath);
+		wait.setTimeInSeconds(timeInSeconds);
+		wait.setSimilarity(defaultSimilarity);
 		return wait;
 	}
 
@@ -61,7 +65,7 @@ public class ScreenDriver {
 	
 		Canvas canvas = new DesktopCanvas();
 		canvas.addBox(myScreen).withLineWidth(3);
-		canvas.display(5);
+		canvas.display(2);
 		
 		//PosFind
 		find = new PostFind();
@@ -71,8 +75,11 @@ public class ScreenDriver {
 	}
 
 	public PostFind findImage(String imagePath) {
-		find = findImage(imagePath, defaultSimilarity);
+		findImage(imagePath, defaultSimilarity);
 		
+		find = new PostFind();
+		find.setImagePath(imagePath);
+		find.setSimilarity(defaultSimilarity);
 		return find;
 	}
 

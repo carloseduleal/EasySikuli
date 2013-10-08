@@ -8,6 +8,7 @@ import org.sikuli.api.ScreenRegion;
 import org.sikuli.api.Target;
 import org.sikuli.api.robot.Keyboard;
 import org.sikuli.api.robot.Mouse;
+import org.sikuli.api.robot.desktop.DesktopKeyboard;
 import org.sikuli.api.robot.desktop.DesktopMouse;
 
 public class PostFind {
@@ -46,6 +47,7 @@ public class PostFind {
 	}
 
 	public void type(String text) {
+		keyboard = new DesktopKeyboard();
 		click();
 		keyboard.type(text);
 	}
