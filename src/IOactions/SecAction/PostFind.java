@@ -34,8 +34,6 @@ public class PostFind {
 		this.similarity = similarity;
 	}
 	
-	
-
 	public void click() {
 		mouse = new DesktopMouse();
 		ScreenRegion myDesktop = new DesktopScreenRegion();
@@ -48,6 +46,7 @@ public class PostFind {
 	}
 
 	public void type(String text) {
+		click();
 		keyboard.type(text);
 	}
 
@@ -72,18 +71,21 @@ public class PostFind {
 
 		ScreenRegion aux = myDesktop.wait(imageTarget, implicityWait);
 		mouse.doubleClick(aux.getCenter());
-
 	}
 
-	public void hover() {
+	public void hover(int timeInSeconds) {
+		int timeResult;
 		mouse = new DesktopMouse();
 		ScreenRegion myDesktop = new DesktopScreenRegion();
 		File image = new File(imagePath);
 		Target imageTarget = new ImageTarget(image);
 		imageTarget.setMinScore(similarity);
 
-		ScreenRegion aux = myDesktop.wait(imageTarget, implicityWait);
+		timeResult = timeInSeconds * 1000;
+		
+		ScreenRegion aux = myDesktop.wait(imageTarget, timeResult);
 		mouse.drop(aux.getCenter());
+		aux = myDesktop.wait(imageTarget, timeResult);
 	}
 
 	public void dragTo(String finalImagePath) {

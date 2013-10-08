@@ -6,6 +6,7 @@ import org.sikuli.api.DesktopScreenRegion;
 import org.sikuli.api.ImageTarget;
 import org.sikuli.api.ScreenRegion;
 import org.sikuli.api.Target;
+import org.sikuli.api.robot.Keyboard;
 import org.sikuli.api.robot.Mouse;
 import org.sikuli.api.robot.desktop.DesktopMouse;
 
@@ -15,6 +16,8 @@ public class PostWait {
 	int timeInSeconds;
 	double similarity;
 	Mouse mouse;
+	Keyboard keyboard;
+	static int implicityWait = 20000;
 	
 	public String getImagePath() {
 		return imagePath;
@@ -40,7 +43,6 @@ public class PostWait {
 		this.similarity = similarity;
 	}
 	
-
 	public void click(){
 		mouse = new DesktopMouse();
 		ScreenRegion myDesktop = new DesktopScreenRegion();
@@ -48,7 +50,7 @@ public class PostWait {
 		Target imageTarget = new ImageTarget(image);
 		imageTarget.setMinScore(similarity);
 	
-		ScreenRegion aux = myDesktop.wait(imageTarget, 5000);
+		ScreenRegion aux = myDesktop.wait(imageTarget, implicityWait);
 		mouse.click(aux.getCenter());
 	}
 	
@@ -59,7 +61,7 @@ public class PostWait {
 		Target imageTarget = new ImageTarget(image);
 		imageTarget.setMinScore(similarity);
 	
-		ScreenRegion aux = myDesktop.wait(imageTarget, 5000);
+		ScreenRegion aux = myDesktop.wait(imageTarget, implicityWait);
 		mouse.rightClick(aux.getCenter());
 	}
 	
@@ -70,7 +72,7 @@ public class PostWait {
 		Target imageTarget = new ImageTarget(image);
 		imageTarget.setMinScore(similarity);
 	
-		ScreenRegion aux = myDesktop.wait(imageTarget, 5000);
+		ScreenRegion aux = myDesktop.wait(imageTarget, implicityWait);
 		mouse.doubleClick(aux.getCenter());
 	}
 	
@@ -81,7 +83,13 @@ public class PostWait {
 		Target imageTarget = new ImageTarget(image);
 		imageTarget.setMinScore(similarity);
 	
-		ScreenRegion aux = myDesktop.wait(imageTarget, 5000);
+		ScreenRegion aux = myDesktop.wait(imageTarget, implicityWait);
 		mouse.drop(aux.getCenter());
+	}
+	
+	public void type(String text){
+		click();
+		keyboard.type(text);
+		
 	}
 }
