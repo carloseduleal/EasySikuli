@@ -21,7 +21,10 @@ public class ScreenDriver {
 	Mouse mouse = new DesktopMouse();
 	Keyboard keyboard = new DesktopKeyboard();
 	double defaultSimilarity = 0.70;
+	PostFind find;
+	PostWait wait;
 
+	
 	public PostWait waitFor(String imagePath, int timeInSeconds, double similarity) {
 		int timeResult = 0;
 		ScreenRegion myDesktop = new DesktopScreenRegion();
@@ -35,15 +38,21 @@ public class ScreenDriver {
 		aux = myDesktop.find(imageTarget);
 		
 		//PosWaitAction
-		PostWait wait = new PostWait();
+		wait = new PostWait();
 		wait.setImagePath(imagePath);
 		wait.setTimeInSeconds(timeInSeconds);
 		wait.setSimilarity(similarity);
 		return wait;
 	}
 
-	public void waitFor(String imagePath, int timeInSeconds) {
+	public PostWait waitFor(String imagePath, int timeInSeconds) {
 		waitFor(imagePath, timeInSeconds, defaultSimilarity);
+		
+		//PosWaitAction
+		wait.setImagePath(imagePath);
+		wait.setTimeInSeconds(timeInSeconds);
+		wait.setSimilarity(defaultSimilarity);
+		return wait;
 	}
 
 	public PostFind findImage(String imagePath, double similarity) {
@@ -59,16 +68,20 @@ public class ScreenDriver {
 		canvas.addBox(myScreen).withLineWidth(3);
 		canvas.display(5);
 		
-		//PosFindAction
-		PostFind find = new PostFind();
+		//PosFind
+		find = new PostFind();
 		find.setImagePath(imagePath);
 		find.setSimilarity(similarity);
 		return find;
 	}
 
-	public void findImage(String imagePath) {
+	public PostFind findImage(String imagePath) {
 		findImage(imagePath, defaultSimilarity);
 		
+		//PosFind
+		find.setImagePath(imagePath);
+		find.setSimilarity(defaultSimilarity);
+		return find;
 	}
 
 }
