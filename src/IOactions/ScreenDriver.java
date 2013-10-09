@@ -124,7 +124,7 @@ public class ScreenDriver {
 		assertImageExists(expectedImagePath, defaultSimilarity, implicityWait);
 	}
 
-	public void screenShot() {
+	private void screenShot() {
 		keyboard = new DesktopKeyboard();
 		keyboard.type(Key.PAUSE);
 	}

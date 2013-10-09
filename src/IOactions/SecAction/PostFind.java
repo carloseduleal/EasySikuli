@@ -15,9 +15,11 @@ public class PostFind {
 
 	String imagePath;
 	double similarity;
+	int implicityWait = 20000;
+	
 	Mouse mouse;
 	Keyboard keyboard;
-	int implicityWait = 20000;
+
 	
 	public enum clickType{
 		RIGHT_CLICK, LEFT_CLICK, DOUBLE_CLICK
