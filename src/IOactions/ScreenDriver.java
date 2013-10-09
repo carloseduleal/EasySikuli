@@ -16,45 +16,45 @@ import org.sikuli.api.robot.desktop.DesktopMouse;
 import org.sikuli.api.visual.Canvas;
 import org.sikuli.api.visual.DesktopCanvas;
 
+import com.googlecode.javacv.cpp.avfilter.AVFilterPic.Free;
+
 import IOactions.SecAction.PostFind;
 import IOactions.SecAction.PostWait;
 
 public class ScreenDriver {
 
-	Mouse mouse = new DesktopMouse();
-	Keyboard keyboard = new DesktopKeyboard();
+	public Mouse mouse = new DesktopMouse();
+	public Keyboard keyboard = new DesktopKeyboard();
+	
+	PostFind postFind;
+	PostWait postWait;
+	
+	static int implicityWait = 20000;
+	int timeResult = 0;
 	double defaultSimilarity = 0.70;
-	PostFind find;
-	PostWait wait;
-	int implicityWait = 20000;
 
 	public PostWait waitFor(String imagePath, int timeInSeconds,double similarity) {
-		int timeResult = 0;
 		ScreenRegion myDesktop = new DesktopScreenRegion();
 		File image = new File(imagePath);
 		Target imageTarget = new ImageTarget(image);
 		imageTarget.setMinScore(similarity);
-
-		ScreenRegion aux = myDesktop;
+		
 		timeResult = timeInSeconds * 1000;
-		aux.wait(imageTarget, timeResult);
-		aux = myDesktop.find(imageTarget);
+		myDesktop.wait(imageTarget, timeResult);
+		myDesktop.find(imageTarget);
 
-		wait = new PostWait();
-		wait.setImagePath(imagePath);
-		wait.setTimeInSeconds(timeInSeconds);
-		wait.setSimilarity(similarity);
-		return wait;
+		//PostWait
+		postWait = new PostWait();
+		postWait.setImagePath(imagePath);
+		postWait.setTimeInSeconds(timeInSeconds);
+		postWait.setSimilarity(similarity);
+		return postWait;
 	}
 
 	public PostWait waitFor(String imagePath, int timeInSeconds) {
-		waitFor(imagePath, timeInSeconds, defaultSimilarity);
+		postWait = waitFor(imagePath, timeInSeconds, defaultSimilarity);
 
-		wait = new PostWait();
-		wait.setImagePath(imagePath);
-		wait.setTimeInSeconds(timeInSeconds);
-		wait.setSimilarity(defaultSimilarity);
-		return wait;
+		return postWait;
 	}
 	
 	public void type(String text){
@@ -67,24 +67,20 @@ public class ScreenDriver {
 		Target imageTarget = new ImageTarget(image);
 		imageTarget.setMinScore(similarity);
 
-		ScreenRegion myScreen = myDesktop;
-		myScreen.wait(imageTarget, implicityWait);
-		myScreen = myDesktop.find(imageTarget);
+		myDesktop.wait(imageTarget, implicityWait);
+		myDesktop.find(imageTarget);
 
 		// PosFind
-		find = new PostFind();
-		find.setImagePath(imagePath);
-		find.setSimilarity(similarity);
-		return find;
+		postFind = new PostFind();
+		postFind.setImagePath(imagePath);
+		postFind.setSimilarity(similarity);
+		return postFind;
 	}
 
 	public PostFind findImage(String imagePath) {
-		findImage(imagePath, defaultSimilarity);
+		postFind = findImage(imagePath, defaultSimilarity);
 
-		find = new PostFind();
-		find.setImagePath(imagePath);
-		find.setSimilarity(defaultSimilarity);
-		return find;
+		return postFind;
 	}
 
 	public void findHightLight(String imagePath) {
@@ -132,4 +128,6 @@ public class ScreenDriver {
 		keyboard = new DesktopKeyboard();
 		keyboard.type(Key.PAUSE);
 	}
+	
+	
 }

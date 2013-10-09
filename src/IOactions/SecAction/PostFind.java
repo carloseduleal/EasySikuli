@@ -18,6 +18,10 @@ public class PostFind {
 	Mouse mouse;
 	Keyboard keyboard;
 	int implicityWait = 20000;
+	
+	public enum clickType{
+		RIGHT_CLICK, LEFT_CLICK, DOUBLE_CLICK
+	}
 
 	public String getImagePath() {
 		return imagePath;
@@ -35,36 +39,21 @@ public class PostFind {
 		this.similarity = similarity;
 	}
 	
-	public void click() {
-		mouse = new DesktopMouse();
-		ScreenRegion myDesktop = new DesktopScreenRegion();
-		File image = new File(imagePath);
-		Target imageTarget = new ImageTarget(image);
-		imageTarget.setMinScore(similarity);
-
-		ScreenRegion aux = myDesktop.wait(imageTarget, implicityWait);
-		mouse.click(aux.getCenter());
-	}
-
-	public void type(String text) {
-		keyboard = new DesktopKeyboard();
-		click();
-		keyboard.type(text);
-	}
-	
 	public void rightClick() {
-		mouse = new DesktopMouse();
-		ScreenRegion myDesktop = new DesktopScreenRegion();
-		File image = new File(imagePath);
-		Target imageTarget = new ImageTarget(image);
-		imageTarget.setMinScore(similarity);
+		howToclick(clickType.RIGHT_CLICK);
+	}
 
-		ScreenRegion aux = myDesktop.wait(imageTarget, implicityWait);
-		mouse.rightClick(aux.getCenter());
+	public void click() {
+		howToclick(clickType.LEFT_CLICK);
 
 	}
 
 	public void doubleClick() {
+		howToclick(clickType.DOUBLE_CLICK);
+
+	}
+
+	private void howToclick(clickType click) {
 		mouse = new DesktopMouse();
 		ScreenRegion myDesktop = new DesktopScreenRegion();
 		File image = new File(imagePath);
@@ -72,7 +61,24 @@ public class PostFind {
 		imageTarget.setMinScore(similarity);
 
 		ScreenRegion aux = myDesktop.wait(imageTarget, implicityWait);
-		mouse.doubleClick(aux.getCenter());
+
+		switch (click) {
+		case RIGHT_CLICK:
+			mouse.rightClick(aux.getCenter());
+			break;
+		case LEFT_CLICK:
+			mouse.click(aux.getCenter());
+			break;
+		case DOUBLE_CLICK:
+			mouse.doubleClick(aux.getCenter());
+			break;
+		}
+
+	}
+
+	public void type(String text) {
+		click();
+		keyboard.type(text);
 	}
 
 	public void hover(int timeInSeconds) {
@@ -84,7 +90,7 @@ public class PostFind {
 		imageTarget.setMinScore(similarity);
 
 		timeResult = timeInSeconds * 1000;
-		
+
 		ScreenRegion aux = myDesktop.wait(imageTarget, timeResult);
 		mouse.drop(aux.getCenter());
 		aux = myDesktop.wait(imageTarget, timeResult);
@@ -96,7 +102,8 @@ public class PostFind {
 		Target targetDragImage = new ImageTarget(dragImage);
 		targetDragImage.setMinScore(similarity);
 
-		ScreenRegion myDragRegion = myDragScreen.wait(targetDragImage, implicityWait);
+		ScreenRegion myDragRegion = myDragScreen.wait(targetDragImage,
+				implicityWait);
 		mouse.drag(myDragRegion.getCenter());
 
 		ScreenRegion myDropScreen = new DesktopScreenRegion();
@@ -104,13 +111,15 @@ public class PostFind {
 		Target targetDropImage = new ImageTarget(dropImage);
 		targetDropImage.setMinScore(similarity);
 
-		ScreenRegion myDropRegion = myDropScreen.wait(targetDropImage, implicityWait);
+		ScreenRegion myDropRegion = myDropScreen.wait(targetDropImage,
+				implicityWait);
 		mouse.drop(myDropRegion.getCenter());
-		
+
 		PostDragTo dragTo = new PostDragTo();
-		
+
 		dragTo.setImagePath(finalImagePath);
 		dragTo.setSimilarity(similarity);
 		return dragTo;
 	}
+
 }

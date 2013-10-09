@@ -9,10 +9,8 @@ public class SystemDriver {
 
 	Keyboard keyboard = new DesktopKeyboard();
 	
-	public void openApplication(String appName, String appAddress) {
-		App ret;
-		App application = new App(appName);
-		ret = application.open(appAddress);
+	public void openApplication(String appAddress) {
+		App.open(appAddress);
 	}
 
 	public void pressEnter() {
