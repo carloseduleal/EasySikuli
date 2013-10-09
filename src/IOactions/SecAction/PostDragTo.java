@@ -11,6 +11,7 @@ public class PostDragTo {
 
 	public double getSimilarity() {
 		return similarity;
+		
 	}
 
 	public void setSimilarity(double similarity) {

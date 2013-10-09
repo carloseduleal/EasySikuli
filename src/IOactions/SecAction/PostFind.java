@@ -77,6 +77,7 @@ public class PostFind {
 	}
 
 	public void type(String text) {
+		keyboard = new DesktopKeyboard();
 		click();
 		keyboard.type(text);
 	}
