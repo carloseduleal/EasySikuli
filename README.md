@@ -1,9 +1,10 @@
 EasySikuli
+==============
 
 TODO
 
-Autores:
-Carlos Leal /
-José Eduardo /
-Mariana Xavier /
-Haysa Rodrigues
+## Autores:
+- Carlos Leal
+- JosÃ© Eduardo
+- Mariana Xavier
+- Haysa Rodrigues
