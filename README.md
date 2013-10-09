@@ -1,9 +1,9 @@
-EasySikuli
+<h2> EasySikuli <h2/>
 
 TODO
 
-Autores:
+<h4> Autores: <h4/>
 Carlos Leal /
-José Eduardo /
+Jose Eduardo /
 Mariana Xavier /
 Haysa Rodrigues
