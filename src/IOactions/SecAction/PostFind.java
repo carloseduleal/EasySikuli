@@ -13,12 +13,12 @@ import org.sikuli.api.robot.desktop.DesktopMouse;
 
 public class PostFind {
 
-	String imagePath;
-	double similarity;
-	int implicityWait = 20000;
+	private String imagePath;
+	private double similarity;
+	private int implicityWait = 20000;
 	
-	Mouse mouse;
-	Keyboard keyboard;
+	private Mouse mouse;
+	private Keyboard keyboard;
 
 	
 	public enum clickType{

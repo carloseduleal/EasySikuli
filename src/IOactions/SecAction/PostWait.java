@@ -12,13 +12,14 @@ import org.sikuli.api.robot.desktop.DesktopMouse;
 
 public class PostWait {
 
-	String imagePath;
-	int timeInSeconds;
-	double similarity;
-	Mouse mouse;
-	Keyboard keyboard;
-	static int implicityWait = 20000;
+	private String imagePath;
+	private int timeInSeconds;
+	private double similarity;
+	private static int implicityWait = 20000;
 	
+	private Mouse mouse;
+	private Keyboard keyboard;
+
 	public String getImagePath() {
 		return imagePath;
 	}

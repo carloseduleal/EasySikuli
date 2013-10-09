@@ -1,6 +1,9 @@
 package IOactions;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import junit.framework.Assert;
 
@@ -15,6 +18,7 @@ import org.sikuli.api.robot.desktop.DesktopKeyboard;
 import org.sikuli.api.robot.desktop.DesktopMouse;
 import org.sikuli.api.visual.Canvas;
 import org.sikuli.api.visual.DesktopCanvas;
+import org.sikuli.script.App;
 
 import com.googlecode.javacv.cpp.avfilter.AVFilterPic.Free;
 
@@ -26,8 +30,8 @@ public class ScreenDriver {
 	public Mouse mouse = new DesktopMouse();
 	public Keyboard keyboard = new DesktopKeyboard();
 	
-	PostFind postFind;
-	PostWait postWait;
+	private PostFind postFind;
+	private PostWait postWait;
 	
 	static int implicityWait = 20000;
 	int timeResult = 0;
@@ -129,5 +133,21 @@ public class ScreenDriver {
 		keyboard.type(Key.PAUSE);
 	}
 	
+	public void openApplication(String appAddress) {
+		App.open(appAddress);
+	}
 	
+	public void openDefaultBrowse(String browseUrl) throws URISyntaxException, IOException{
+		URI url = new URI(browseUrl);
+		java.awt.Desktop.getDesktop().browse(url);
+	}
+	
+	public void openTxtFile(String appAddress) throws IOException{
+		File file = new File(appAddress);
+		java.awt.Desktop.getDesktop().edit(file);
+	}
+	
+	public void pressEnter() {
+		keyboard.type(Key.ENTER);
+	}
 }

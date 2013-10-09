@@ -5,13 +5,13 @@ import org.sikuli.script.Key;
 
 public class PostDragTo {
 
-	Keyboard keyboard;
-	double similarity;
-	String imagePath;
+	private double similarity;
+	private String imagePath;
+	
+	private Keyboard keyboard;
 
 	public double getSimilarity() {
 		return similarity;
-		
 	}
 
 	public void setSimilarity(double similarity) {
