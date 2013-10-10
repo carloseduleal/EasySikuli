@@ -41,13 +41,13 @@ public class ScreenDriver {
 
 	
 	/**
-	 * Método que espera, ate o tempo informado, um elemento(imagem) aparecer na tela.
+	 * This method waits the specified time for an element (image) to show up on the screen.
 	 * 
-	 * @param imagePath endereco(dentro do projeto) da imagem a ser aguardada; 
-	 * @param timeInSeconds tempo de espera;
-	 * @param similarity grau de similaridade da imagem a ser aguardada (min 0.01, max 0.99);
+	 * @param imagePath path to the image to verified on the screen; 
+	 * @param timeInSeconds wait time in seconds;
+	 * @param similarity similarity degree to be used on the comparison between the target image and the screen (min 0.01, max 0.99);
 	 * 
-	 * @return postWait objeto com o valor informado de todos os parametros
+	 * @return postWait object returned including the parameters informed
 	 */
 	public PostWait waitFor(String imagePath, int timeInSeconds,double similarity) {
 		ScreenRegion myDesktop = new DesktopScreenRegion();
@@ -68,12 +68,12 @@ public class ScreenDriver {
 	}
 
 	/**
-	 * Método que espera, ate o tempo informado, um elemento(imagem) aparecer na tela.
+	 * This method waits the specified time for an element (image) to show up on the screen.
 	 * 
-	 * @param imagePath endereco(dentro do projeto) da imagem a ser aguardada; 
-	 * @param timeInSeconds tempo de espera;
+	 * @param imagePath path to the image to verified on the screen; 
+	 * @param timeInSeconds wait time in seconds;
 	 * 
-	 * @return postWait
+	 * @return postWait object returned including the parameters informed
 	 */
 	public PostWait waitFor(String imagePath, int timeInSeconds) {
 		postWait = waitFor(imagePath, timeInSeconds, defaultSimilarity);
@@ -83,9 +83,9 @@ public class ScreenDriver {
 	
 	
 	/**
-	 * Método que escreve em qualquer campo de texto que estiver com o foco. 
+	 * Mï¿½todo que escreve em qualquer campo de texto que estiver com o foco. 
 	 * 
-	 * @param text texto que será inserido no campo;
+	 * @param text texto que serï¿½ inserido no campo;
 	 */
 	public void type(String text){
 		keyboard.type(text);
@@ -93,7 +93,7 @@ public class ScreenDriver {
 
 	
 	/**
-	 * Método que procura uma imagem na tela atual e é ponto inicial para outras ações, como:
+	 * Mï¿½todo que procura uma imagem na tela atual e ï¿½ ponto inicial para outras aï¿½ï¿½es, como:
 	 * click, doubleClick, type, etc.
 	 * 
 	 * @param imagePath endereco(dentro do projeto) da imagem a ser procurada;
@@ -118,7 +118,7 @@ public class ScreenDriver {
 	}
 
 	/**
-	 * Método que procura uma imagem na tela atual e é ponto inicial para outras ações, como:
+	 * Mï¿½todo que procura uma imagem na tela atual e ï¿½ ponto inicial para outras aï¿½ï¿½es, como:
 	 * click, doubleClick, type, etc.
 	 * 
 	 * @param imagePath endereco(dentro do projeto) da imagem a ser procurada;
@@ -131,7 +131,7 @@ public class ScreenDriver {
 	}
 
 	/**
-	 * Método que funciona como debug, procura uma imagem na tela atual e contorna ela com um box de cor vermelha;
+	 * Mï¿½todo que funciona como debug, procura uma imagem na tela atual e contorna ela com um box de cor vermelha;
 	 * 
 	 * @param imagePath endereco(dentro do projeto) da imagem a ser procurada;
 	 */
