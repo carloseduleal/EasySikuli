@@ -83,7 +83,7 @@ public class ScreenDriver {
 	
 	
 	/**
-	 * M�todo que escreve em qualquer campo de texto que estiver com o foco. 
+	 * Metodo que escreve em qualquer campo de texto que estiver com o foco. 
 	 * 
 	 * @param text texto que ser� inserido no campo;
 	 */
@@ -93,7 +93,7 @@ public class ScreenDriver {
 
 	
 	/**
-	 * M�todo que procura uma imagem na tela atual e � ponto inicial para outras a��es, como:
+	 * Metodo que procura uma imagem na tela atual e eh ponto inicial para outras acoes, como:
 	 * click, doubleClick, type, etc.
 	 * 
 	 * @param imagePath endereco(dentro do projeto) da imagem a ser procurada;
@@ -118,7 +118,7 @@ public class ScreenDriver {
 	}
 
 	/**
-	 * M�todo que procura uma imagem na tela atual e � ponto inicial para outras a��es, como:
+	 * Metodo que procura uma imagem na tela atual e eh ponto inicial para outras acoes, como:
 	 * click, doubleClick, type, etc.
 	 * 
 	 * @param imagePath endereco(dentro do projeto) da imagem a ser procurada;
@@ -131,7 +131,7 @@ public class ScreenDriver {
 	}
 
 	/**
-	 * M�todo que funciona como debug, procura uma imagem na tela atual e contorna ela com um box de cor vermelha;
+	 * Metodo que funciona como debug, procura uma imagem na tela atual e contorna ela com um box de cor vermelha;
 	 * 
 	 * @param imagePath endereco(dentro do projeto) da imagem a ser procurada;
 	 */
