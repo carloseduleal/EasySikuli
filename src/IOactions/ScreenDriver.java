@@ -52,6 +52,7 @@ public class ScreenDriver {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Método que espera, ate o tempo informado, um elemento(imagem) aparecer na
 	 * tela.
 	 * 
@@ -62,8 +63,15 @@ public class ScreenDriver {
 	 * @param similarity
 	 *            grau de similaridade da imagem a ser aguardada (min 0.01, max
 	 *            0.99);
+=======
+	 * This method waits the specified time for an element (image) to show up on the screen.
 	 * 
-	 * @return postWait objeto com o valor informado de todos os parametros
+	 * @param imagePath path to the image to verified on the screen; 
+	 * @param timeInSeconds wait time in seconds;
+	 * @param similarity similarity degree to be used on the comparison between the target image and the screen (min 0.01, max 0.99);
+>>>>>>> fdbf8754e501e68ce7fb8c5995b1fea356c130d8
+	 * 
+	 * @return postWait object returned including the parameters informed
 	 */
 	public PostWait waitFor(String imagePath, int timeInSeconds,
 			double similarity) {
@@ -85,6 +93,7 @@ public class ScreenDriver {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Método que espera, ate o tempo informado, um elemento(imagem) aparecer na
 	 * tela.
 	 * 
@@ -92,8 +101,14 @@ public class ScreenDriver {
 	 *            endereco(dentro do projeto) da imagem a ser aguardada;
 	 * @param timeInSeconds
 	 *            tempo de espera;
+=======
+	 * This method waits the specified time for an element (image) to show up on the screen.
 	 * 
-	 * @return postWait
+	 * @param imagePath path to the image to verified on the screen; 
+	 * @param timeInSeconds wait time in seconds;
+>>>>>>> fdbf8754e501e68ce7fb8c5995b1fea356c130d8
+	 * 
+	 * @return postWait object returned including the parameters informed
 	 */
 	public PostWait waitFor(String imagePath, int timeInSeconds) {
 		postWait = waitFor(imagePath, timeInSeconds, defaultSimilarity);
@@ -102,18 +117,29 @@ public class ScreenDriver {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Método que escreve em qualquer campo de texto que estiver com o foco.
 	 * 
 	 * @param text
 	 *            texto que será inserido no campo;
+=======
+	 * Metodo que escreve em qualquer campo de texto que estiver com o foco. 
+	 * 
+	 * @param text texto que serï¿½ inserido no campo;
+>>>>>>> fdbf8754e501e68ce7fb8c5995b1fea356c130d8
 	 */
 	public void type(String text) {
 		keyboard.type(text);
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Método que procura uma imagem na tela atual e é ponto inicial para outras
 	 * ações, como: click, doubleClick, type, etc.
+=======
+	 * Metodo que procura uma imagem na tela atual e eh ponto inicial para outras acoes, como:
+	 * click, doubleClick, type, etc.
+>>>>>>> fdbf8754e501e68ce7fb8c5995b1fea356c130d8
 	 * 
 	 * @param imagePath
 	 *            endereco(dentro do projeto) da imagem a ser procurada;
@@ -140,8 +166,13 @@ public class ScreenDriver {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Método que procura uma imagem na tela atual e é ponto inicial para outras
 	 * ações, como: click, doubleClick, type, etc.
+=======
+	 * Metodo que procura uma imagem na tela atual e eh ponto inicial para outras acoes, como:
+	 * click, doubleClick, type, etc.
+>>>>>>> fdbf8754e501e68ce7fb8c5995b1fea356c130d8
 	 * 
 	 * @param imagePath
 	 *            endereco(dentro do projeto) da imagem a ser procurada;
@@ -154,8 +185,12 @@ public class ScreenDriver {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Método que funciona como debug, procura uma imagem na tela atual e
 	 * contorna ela com um box de cor vermelha;
+=======
+	 * Metodo que funciona como debug, procura uma imagem na tela atual e contorna ela com um box de cor vermelha;
+>>>>>>> fdbf8754e501e68ce7fb8c5995b1fea356c130d8
 	 * 
 	 * @param imagePath
 	 *            endereco(dentro do projeto) da imagem a ser procurada;
