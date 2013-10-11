@@ -25,41 +25,58 @@ import IOactions.SecAction.PostWait;
 
 /**
  * @author Carlos Leal
- *
+ * 
  */
 public class ScreenDriver {
 
 	public Mouse mouse = new DesktopMouse();
 	public Keyboard keyboard = new DesktopKeyboard();
-	
+
 	private PostFind postFind;
 	private PostWait postWait;
-	
+
 	static int implicityWait = 20000;
 	int timeResult = 0;
 	double defaultSimilarity = 0.70;
 
-	
-	/**
-	 * Método que espera, ate o tempo informado, um elemento(imagem) aparecer na tela.
-	 * 
-	 * @param imagePath endereco(dentro do projeto) da imagem a ser aguardada; 
-	 * @param timeInSeconds tempo de espera;
-	 * @param similarity grau de similaridade da imagem a ser aguardada (min 0.01, max 0.99);
-	 * 
-	 * @return postWait objeto com o valor informado de todos os parametros
-	 */
-	public PostWait waitFor(String imagePath, int timeInSeconds,double similarity) {
+	public void waitDisappear(String imagePath, int timeoutInSeconds, double similarity) {
 		ScreenRegion myDesktop = new DesktopScreenRegion();
 		File image = new File(imagePath);
 		Target imageTarget = new ImageTarget(image);
 		imageTarget.setMinScore(similarity);
-		
+
+		ScreenRegion myScreen = myDesktop;
+			do {
+				myScreen = myDesktop.find(imageTarget);
+			} while (myScreen != null);
+	}
+
+	/**
+	 * Método que espera, ate o tempo informado, um elemento(imagem) aparecer na
+	 * tela.
+	 * 
+	 * @param imagePath
+	 *            endereco(dentro do projeto) da imagem a ser aguardada;
+	 * @param timeInSeconds
+	 *            tempo de espera;
+	 * @param similarity
+	 *            grau de similaridade da imagem a ser aguardada (min 0.01, max
+	 *            0.99);
+	 * 
+	 * @return postWait objeto com o valor informado de todos os parametros
+	 */
+	public PostWait waitFor(String imagePath, int timeInSeconds,
+			double similarity) {
+		ScreenRegion myDesktop = new DesktopScreenRegion();
+		File image = new File(imagePath);
+		Target imageTarget = new ImageTarget(image);
+		imageTarget.setMinScore(similarity);
+
 		timeResult = timeInSeconds * 1000;
 		myDesktop.wait(imageTarget, timeResult);
 		myDesktop.find(imageTarget);
 
-		//PostWait
+		// PostWait
 		postWait = new PostWait();
 		postWait.setImagePath(imagePath);
 		postWait.setTimeInSeconds(timeInSeconds);
@@ -68,10 +85,13 @@ public class ScreenDriver {
 	}
 
 	/**
-	 * Método que espera, ate o tempo informado, um elemento(imagem) aparecer na tela.
+	 * Método que espera, ate o tempo informado, um elemento(imagem) aparecer na
+	 * tela.
 	 * 
-	 * @param imagePath endereco(dentro do projeto) da imagem a ser aguardada; 
-	 * @param timeInSeconds tempo de espera;
+	 * @param imagePath
+	 *            endereco(dentro do projeto) da imagem a ser aguardada;
+	 * @param timeInSeconds
+	 *            tempo de espera;
 	 * 
 	 * @return postWait
 	 */
@@ -80,24 +100,26 @@ public class ScreenDriver {
 
 		return postWait;
 	}
-	
-	
+
 	/**
-	 * Método que escreve em qualquer campo de texto que estiver com o foco. 
+	 * Método que escreve em qualquer campo de texto que estiver com o foco.
 	 * 
-	 * @param text texto que será inserido no campo;
+	 * @param text
+	 *            texto que será inserido no campo;
 	 */
-	public void type(String text){
+	public void type(String text) {
 		keyboard.type(text);
 	}
 
-	
 	/**
-	 * Método que procura uma imagem na tela atual e é ponto inicial para outras ações, como:
-	 * click, doubleClick, type, etc.
+	 * Método que procura uma imagem na tela atual e é ponto inicial para outras
+	 * ações, como: click, doubleClick, type, etc.
 	 * 
-	 * @param imagePath endereco(dentro do projeto) da imagem a ser procurada;
-	 * @param similarity grau de similaridade da imagem a ser aguardada (min 0.01, max 0.99);
+	 * @param imagePath
+	 *            endereco(dentro do projeto) da imagem a ser procurada;
+	 * @param similarity
+	 *            grau de similaridade da imagem a ser aguardada (min 0.01, max
+	 *            0.99);
 	 * 
 	 * @return postFind objeto com o valor informado de todos os parametros;
 	 */
@@ -118,10 +140,11 @@ public class ScreenDriver {
 	}
 
 	/**
-	 * Método que procura uma imagem na tela atual e é ponto inicial para outras ações, como:
-	 * click, doubleClick, type, etc.
+	 * Método que procura uma imagem na tela atual e é ponto inicial para outras
+	 * ações, como: click, doubleClick, type, etc.
 	 * 
-	 * @param imagePath endereco(dentro do projeto) da imagem a ser procurada;
+	 * @param imagePath
+	 *            endereco(dentro do projeto) da imagem a ser procurada;
 	 * @return postFind objeto com o valor informado de todos os parametros;
 	 */
 	public PostFind findImage(String imagePath) {
@@ -131,9 +154,11 @@ public class ScreenDriver {
 	}
 
 	/**
-	 * Método que funciona como debug, procura uma imagem na tela atual e contorna ela com um box de cor vermelha;
+	 * Método que funciona como debug, procura uma imagem na tela atual e
+	 * contorna ela com um box de cor vermelha;
 	 * 
-	 * @param imagePath endereco(dentro do projeto) da imagem a ser procurada;
+	 * @param imagePath
+	 *            endereco(dentro do projeto) da imagem a ser procurada;
 	 */
 	public void findHightLight(String imagePath) {
 		ScreenRegion myDesktop = new DesktopScreenRegion();
@@ -180,21 +205,22 @@ public class ScreenDriver {
 		keyboard = new DesktopKeyboard();
 		keyboard.type(Key.PAUSE);
 	}
-	
+
 	public void openApplication(String appAddress) {
 		App.open(appAddress);
 	}
-	
-	public void openDefaultBrowse(String browseUrl) throws URISyntaxException, IOException{
+
+	public void openDefaultBrowse(String browseUrl) throws URISyntaxException,
+			IOException {
 		URI url = new URI(browseUrl);
 		java.awt.Desktop.getDesktop().browse(url);
 	}
-	
-	public void openTxtFile(String appAddress) throws IOException{
+
+	public void openTxtFile(String appAddress) throws IOException {
 		File file = new File(appAddress);
 		java.awt.Desktop.getDesktop().edit(file);
 	}
-	
+
 	public void pressEnter() {
 		keyboard.type(Key.ENTER);
 	}
