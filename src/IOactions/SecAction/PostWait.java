@@ -20,6 +20,7 @@ public class PostWait {
 	private Mouse mouse;
 	private Keyboard keyboard;
 
+	
 	public String getImagePath() {
 		return imagePath;
 	}
