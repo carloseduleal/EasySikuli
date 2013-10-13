@@ -20,11 +20,6 @@ public class PostFind {
 	private Mouse mouse = new DesktopMouse();
 	private Keyboard keyboard = new DesktopKeyboard();
 
-	
-	public enum clickType{
-		RIGHT_CLICK, LEFT_CLICK, DOUBLE_CLICK
-	}
-
 	public String getImagePath() {
 		return imagePath;
 	}
@@ -42,20 +37,20 @@ public class PostFind {
 	}
 	
 	public void rightClick() {
-		howToclick(clickType.RIGHT_CLICK);
+		howToclick(ClickType.RIGHT_CLICK);
 	}
 
 	public void click() {
-		howToclick(clickType.LEFT_CLICK);
+		howToclick(ClickType.LEFT_CLICK);
 
 	}
 
 	public void doubleClick() {
-		howToclick(clickType.DOUBLE_CLICK);
+		howToclick(ClickType.DOUBLE_CLICK);
 
 	}
 
-	private void howToclick(clickType click) {
+	private void howToclick(ClickType click) {
 		ScreenRegion myDesktop = new DesktopScreenRegion();
 		File image = new File(imagePath);
 		Target imageTarget = new ImageTarget(image);
