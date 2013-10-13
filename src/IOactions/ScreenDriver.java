@@ -21,6 +21,7 @@ import org.sikuli.api.visual.DesktopCanvas;
 import org.sikuli.script.App;
 
 import IOactions.SecAction.PostFind;
+import IOactions.SecAction.PostType;
 import IOactions.SecAction.PostWait;
 
 public class ScreenDriver {
@@ -35,29 +36,40 @@ public class ScreenDriver {
 	int timeResult = 0;
 	double defaultSimilarity = 0.70;
 
-
-	public void waitDisappear(String imagePath, int timeoutInSeconds, double similarity) {
+	public void waitDisappear(String imagePath, int timeoutInSeconds,
+			double similarity) throws InterruptedException {
 		ScreenRegion myDesktop = new DesktopScreenRegion();
 		File image = new File(imagePath);
 		Target imageTarget = new ImageTarget(image);
 		imageTarget.setMinScore(similarity);
 
 		ScreenRegion myScreen = myDesktop;
-			do {
-				myScreen = myDesktop.find(imageTarget);
-			} while (myScreen != null);
+		int currentTime = 0;
+		while(currentTime <= timeoutInSeconds){
+		do {
+			myScreen = myDesktop.find(imageTarget);
+		} while (myScreen != null);
+		Thread.sleep(1000);
+		currentTime++;
+		}
 	}
 
 	/**
-	 * This method waits the specified time for an element (image) to show up on the screen.
+	 * This method waits the specified time for an element (image) to show up on
+	 * the screen.
 	 * 
-	 * @param imagePath path to the image to verified on the screen; 
-	 * @param timeInSeconds wait time in seconds;
-	 * @param similarity similarity degree to be used on the comparison between the target image and the screen (min 0.01, max 0.99);
+	 * @param imagePath
+	 *            path to the image to verified on the screen;
+	 * @param timeInSeconds
+	 *            wait time in seconds;
+	 * @param similarity
+	 *            similarity degree to be used on the comparison between the
+	 *            target image and the screen (min 0.01, max 0.99);
 	 * 
 	 * @return postWait object returned including the parameters informed
 	 */
-	public PostWait waitFor(String imagePath, int timeInSeconds, double similarity) {
+	public PostWait waitFor(String imagePath, int timeInSeconds,
+			double similarity) {
 		ScreenRegion myDesktop = new DesktopScreenRegion();
 		File image = new File(imagePath);
 		Target imageTarget = new ImageTarget(image);
@@ -76,10 +88,13 @@ public class ScreenDriver {
 	}
 
 	/**
-	 * This method waits the specified time for an element (image) to show up on the screen.
+	 * This method waits the specified time for an element (image) to show up on
+	 * the screen.
 	 * 
-	 * @param imagePath path to the image to verified on the screen; 
-	 * @param timeInSeconds wait time in seconds;
+	 * @param imagePath
+	 *            path to the image to verified on the screen;
+	 * @param timeInSeconds
+	 *            wait time in seconds;
 	 * 
 	 * @return postWait object returned including the parameters informed
 	 */
@@ -95,8 +110,10 @@ public class ScreenDriver {
 	 * @param text
 	 *            the text that will be written.
 	 */
-	public void type(String text) {
+	public PostType type(String text) {
 		keyboard.type(text);
+
+		return null;
 	}
 
 	/**
@@ -145,7 +162,8 @@ public class ScreenDriver {
 	}
 
 	/**
-	 * Metodo que funciona como debug, procura uma imagem na tela atual e contorna ela com um box de cor vermelha;
+	 * Metodo que funciona como debug, procura uma imagem na tela atual e
+	 * contorna ela com um box de cor vermelha;
 	 * 
 	 * @param imagePath
 	 *            endereco(dentro do projeto) da imagem a ser procurada;
@@ -192,7 +210,6 @@ public class ScreenDriver {
 	}
 
 	private void screenShot() {
-		keyboard = new DesktopKeyboard();
 		keyboard.type(Key.PAUSE);
 	}
 

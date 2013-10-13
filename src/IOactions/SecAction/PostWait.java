@@ -8,6 +8,7 @@ import org.sikuli.api.ScreenRegion;
 import org.sikuli.api.Target;
 import org.sikuli.api.robot.Keyboard;
 import org.sikuli.api.robot.Mouse;
+import org.sikuli.api.robot.desktop.DesktopKeyboard;
 import org.sikuli.api.robot.desktop.DesktopMouse;
 
 public class PostWait {
@@ -17,8 +18,8 @@ public class PostWait {
 	private double similarity;
 	private static int implicityWait = 20000;
 	
-	private Mouse mouse;
-	private Keyboard keyboard;
+	private Mouse mouse = new DesktopMouse();
+	private Keyboard keyboard = new DesktopKeyboard();
 
 	
 	public String getImagePath() {
@@ -46,7 +47,6 @@ public class PostWait {
 	}
 	
 	public void click(){
-		mouse = new DesktopMouse();
 		ScreenRegion myDesktop = new DesktopScreenRegion();
 		File image = new File(imagePath);
 		Target imageTarget = new ImageTarget(image);
@@ -57,7 +57,6 @@ public class PostWait {
 	}
 	
 	public void rightClick(){
-		mouse = new DesktopMouse();
 		ScreenRegion myDesktop = new DesktopScreenRegion();
 		File image = new File(imagePath);
 		Target imageTarget = new ImageTarget(image);
@@ -68,7 +67,6 @@ public class PostWait {
 	}
 	
 	public void doubleClick(){
-		mouse = new DesktopMouse();
 		ScreenRegion myDesktop = new DesktopScreenRegion();
 		File image = new File(imagePath);
 		Target imageTarget = new ImageTarget(image);
@@ -79,7 +77,6 @@ public class PostWait {
 	}
 	
 	public void hover(){
-		mouse = new DesktopMouse();
 		ScreenRegion myDesktop = new DesktopScreenRegion();
 		File image = new File(imagePath);
 		Target imageTarget = new ImageTarget(image);
@@ -90,9 +87,10 @@ public class PostWait {
 		aux = myDesktop.wait(imageTarget, implicityWait);
 	}
 	
-	public void type(String text){
+	public PostType type(String text){
 		click();
 		keyboard.type(text);
 		
+		return null;
 	}
 }

@@ -17,8 +17,8 @@ public class PostFind {
 	private double similarity;
 	private int implicityWait = 20000;
 	
-	private Mouse mouse;
-	private Keyboard keyboard;
+	private Mouse mouse = new DesktopMouse();
+	private Keyboard keyboard = new DesktopKeyboard();
 
 	
 	public enum clickType{
@@ -56,7 +56,6 @@ public class PostFind {
 	}
 
 	private void howToclick(clickType click) {
-		mouse = new DesktopMouse();
 		ScreenRegion myDesktop = new DesktopScreenRegion();
 		File image = new File(imagePath);
 		Target imageTarget = new ImageTarget(image);
@@ -78,15 +77,15 @@ public class PostFind {
 
 	}
 
-	public void type(String text) {
-		keyboard = new DesktopKeyboard();
+	public PostType type(String text) {
 		click();
 		keyboard.type(text);
+		
+		return null;
 	}
 
 	public void hover(int timeInSeconds) {
 		int timeResult;
-		mouse = new DesktopMouse();
 		ScreenRegion myDesktop = new DesktopScreenRegion();
 		File image = new File(imagePath);
 		Target imageTarget = new ImageTarget(image);
