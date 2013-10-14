@@ -47,33 +47,37 @@ public class PostWait {
 	}
 	
 	public void click(){
-		ScreenRegion myDesktop = new DesktopScreenRegion();
-		File image = new File(imagePath);
-		Target imageTarget = new ImageTarget(image);
-		imageTarget.setMinScore(similarity);
-	
-		ScreenRegion aux = myDesktop.wait(imageTarget, implicityWait);
-		mouse.click(aux.getCenter());
+		howToclick(ClickType.LEFT_CLICK);
 	}
 	
 	public void rightClick(){
-		ScreenRegion myDesktop = new DesktopScreenRegion();
-		File image = new File(imagePath);
-		Target imageTarget = new ImageTarget(image);
-		imageTarget.setMinScore(similarity);
-	
-		ScreenRegion aux = myDesktop.wait(imageTarget, implicityWait);
-		mouse.rightClick(aux.getCenter());
+		howToclick(ClickType.RIGHT_CLICK);
 	}
 	
 	public void doubleClick(){
+		howToclick(ClickType.DOUBLE_CLICK);
+	}
+	
+	private void howToclick(ClickType click) {
 		ScreenRegion myDesktop = new DesktopScreenRegion();
 		File image = new File(imagePath);
 		Target imageTarget = new ImageTarget(image);
 		imageTarget.setMinScore(similarity);
 	
 		ScreenRegion aux = myDesktop.wait(imageTarget, implicityWait);
-		mouse.doubleClick(aux.getCenter());
+
+		switch (click) {
+		case RIGHT_CLICK:
+			mouse.rightClick(aux.getCenter());
+			break;
+		case LEFT_CLICK:
+			mouse.click(aux.getCenter());
+			break;
+		case DOUBLE_CLICK:
+			mouse.doubleClick(aux.getCenter());
+			break;
+		}
+
 	}
 	
 	public void hover(){
