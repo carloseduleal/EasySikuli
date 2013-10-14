@@ -45,13 +45,11 @@ public class ScreenDriver {
 
 		ScreenRegion myScreen = myDesktop;
 		int currentTime = 0;
-		while(currentTime <= timeoutInSeconds){
 		do {
 			myScreen = myDesktop.find(imageTarget);
-		} while (myScreen != null);
-		Thread.sleep(1000);
-		currentTime++;
-		}
+			Thread.sleep(1000);
+			currentTime++;
+		} while ((myScreen != null) && (currentTime <= timeoutInSeconds));
 	}
 
 	/**
@@ -162,11 +160,11 @@ public class ScreenDriver {
 	}
 
 	/**
-	 * Metodo que funciona como debug, procura uma imagem na tela atual e
-	 * contorna ela com um box de cor vermelha;
+	 * This method should help the user by trying to find a target image on the Screen
+	 * and surrounds it with a red box;
 	 * 
 	 * @param imagePath
-	 *            endereco(dentro do projeto) da imagem a ser procurada;
+	 *            path (in the current project) to the image to be found;
 	 */
 	public void findHightLight(String imagePath) {
 		ScreenRegion myDesktop = new DesktopScreenRegion();
