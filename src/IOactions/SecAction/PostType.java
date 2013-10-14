@@ -15,5 +15,4 @@ public class PostType {
 	public void pressTab(){
 		keyboard.type(Key.TAB);
 	}
-	
 }

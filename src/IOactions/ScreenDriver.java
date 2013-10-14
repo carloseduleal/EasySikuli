@@ -36,8 +36,22 @@ public class ScreenDriver {
 	int timeResult = 0;
 	double defaultSimilarity = 0.70;
 
-	public void waitDisappear(String imagePath, int timeoutInSeconds,
-			double similarity) throws InterruptedException {
+	/**
+	 * This method waits the specfied time for an element (image) disappear from
+	 * the screen.
+	 * 
+	 * @param imagePath
+	 *            path to the image to verified on the screen;
+	 * @param timeoutInSeconds
+	 *            the limit of time that this function will wait for the image;
+	 * @param similarity
+	 *            similarity degree to be used on the comparison between the
+	 *            target image and the screen (min 0.01, max 0.99);
+	 * @throws InterruptedException
+	 */
+	public void waitDisappear(final String imagePath,
+			final int timeoutInSeconds, double similarity)
+			throws InterruptedException {
 		ScreenRegion myDesktop = new DesktopScreenRegion();
 		File image = new File(imagePath);
 		Target imageTarget = new ImageTarget(image);
@@ -53,6 +67,21 @@ public class ScreenDriver {
 	}
 
 	/**
+	 * This method waits the specfied time for an element (image) disappear from
+	 * the screen.
+	 * 
+	 * @param imagePath
+	 *            path to the image to verified on the screen;
+	 * @param timeoutInSeconds
+	 *            the limit of time that this function will wait for the image;
+	 * @throws InterruptedException
+	 */
+	public void waitDisappear(String imagePath, int timeoutInSeconds)
+			throws InterruptedException {
+		waitDisappear(imagePath, timeoutInSeconds, defaultSimilarity);
+	}
+
+	/**
 	 * This method waits the specified time for an element (image) to show up on
 	 * the screen.
 	 * 
@@ -63,11 +92,10 @@ public class ScreenDriver {
 	 * @param similarity
 	 *            similarity degree to be used on the comparison between the
 	 *            target image and the screen (min 0.01, max 0.99);
-	 * 
 	 * @return postWait object returned including the parameters informed
 	 */
-	public PostWait waitFor(String imagePath, int timeInSeconds,
-			double similarity) {
+	public PostWait waitFor(final String imagePath, final int timeInSeconds,
+			final double similarity) {
 		ScreenRegion myDesktop = new DesktopScreenRegion();
 		File image = new File(imagePath);
 		Target imageTarget = new ImageTarget(image);
@@ -93,10 +121,9 @@ public class ScreenDriver {
 	 *            path to the image to verified on the screen;
 	 * @param timeInSeconds
 	 *            wait time in seconds;
-	 * 
 	 * @return postWait object returned including the parameters informed
 	 */
-	public PostWait waitFor(String imagePath, int timeInSeconds) {
+	public PostWait waitFor(final String imagePath, final int timeInSeconds) {
 		postWait = waitFor(imagePath, timeInSeconds, defaultSimilarity);
 
 		return postWait;
@@ -108,7 +135,7 @@ public class ScreenDriver {
 	 * @param text
 	 *            the text that will be written.
 	 */
-	public PostType type(String text) {
+	public PostType type(final String text) {
 		keyboard.type(text);
 
 		return null;
@@ -127,7 +154,7 @@ public class ScreenDriver {
 	 * 
 	 * @return postFind object returned including the parameters informed
 	 */
-	public PostFind findImage(String imagePath, double similarity) {
+	public PostFind findImage(final String imagePath, final double similarity) {
 		ScreenRegion myDesktop = new DesktopScreenRegion();
 		File image = new File(imagePath);
 		Target imageTarget = new ImageTarget(image);
@@ -160,8 +187,8 @@ public class ScreenDriver {
 	}
 
 	/**
-	 * This method should help the user by trying to find a target image on the Screen
-	 * and surrounds it with a red box;
+	 * This method should help the user by trying to find a target image on the
+	 * Screen and surrounds it with a red box;
 	 * 
 	 * @param imagePath
 	 *            path (in the current project) to the image to be found;
@@ -181,9 +208,20 @@ public class ScreenDriver {
 		canvas.display(5);
 	}
 
+	/**
+	 * This method verify if the image received in this method is show up in the
+	 * screen or not.
+	 * 
+	 * @param expectedImagePath
+	 *            path to the image to expected on the screen;
+	 * @param similarity
+	 *            similarity degree to be used on the comparison between the
+	 *            target image and the screen (min 0.01, max 0.99);
+	 * @param timeInSeconds
+	 */
 	public void assertImageExists(String expectedImagePath, double similarity,
 			int timeInSeconds) {
-		int timeResult;
+		int timeResult = 0;
 		ScreenRegion myDesktop = new DesktopScreenRegion();
 		File image = new File(expectedImagePath);
 		Target imageTarget = new ImageTarget(image);
@@ -207,30 +245,52 @@ public class ScreenDriver {
 		assertImageExists(expectedImagePath, defaultSimilarity, implicityWait);
 	}
 
+	/**
+	 * This method only press the PAUSE key. The PAUSE is the Wink (app that
+	 * receive screenShots and save as PDF) hotkey.
+	 */
 	private void screenShot() {
 		keyboard.type(Key.PAUSE);
 	}
 
+	/**
+	 * This method open an specified application (.exe or .bat format)
+	 * 
+	 * @param appAddress
+	 *            the full path of the application.
+	 *            (example:"C:\\Users\\example.exe")
+	 */
+	/**
+	 * @param appAddress
+	 */
 	public void openApplication(String appAddress) {
 		App.open(appAddress);
 	}
 
+	/**
+	 * This method open the default browse and receive his URL as parameter.
+	 * 
+	 * @param browseUrl
+	 *            the URL page that the browse will receive
+	 * @throws URISyntaxException
+	 * @throws IOException
+	 */
 	public void openDefaultBrowse(String browseUrl) throws URISyntaxException,
 			IOException {
 		URI url = new URI(browseUrl);
 		java.awt.Desktop.getDesktop().browse(url);
 	}
 
-	public void openTxtFile(String appAddress) throws IOException {
-		File file = new File(appAddress);
+	public void openTxtFile(String fileAddress) throws IOException {
+		File file = new File(fileAddress);
 		java.awt.Desktop.getDesktop().edit(file);
 	}
 
 	public void pressEnter() {
 		keyboard.type(Key.ENTER);
 	}
-	
-	public Utils utils(){
+
+	public Utils utils() {
 		return null;
 	}
 }

@@ -5,8 +5,8 @@ import org.sikuli.script.Key;
 
 public class PostDragTo {
 
-	private double similarity;
-	private String imagePath;
+	private double similarity = 0;
+	private String imagePath = null;
 	
 	private Keyboard keyboard;
 
