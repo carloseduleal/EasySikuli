@@ -37,20 +37,20 @@ public class PostFind {
 	}
 	
 	public void rightClick() {
-		howToclick(ClickType.RIGHT_CLICK);
+		howToclick(Enum.RIGHT_CLICK);
 	}
 
 	public void click() {
-		howToclick(ClickType.LEFT_CLICK);
+		howToclick(Enum.LEFT_CLICK);
 
 	}
 
 	public void doubleClick() {
-		howToclick(ClickType.DOUBLE_CLICK);
+		howToclick(Enum.DOUBLE_CLICK);
 
 	}
 
-	private void howToclick(ClickType click) {
+	private void howToclick(Enum click) {
 		ScreenRegion myDesktop = new DesktopScreenRegion();
 		File image = new File(imagePath);
 		Target imageTarget = new ImageTarget(image);

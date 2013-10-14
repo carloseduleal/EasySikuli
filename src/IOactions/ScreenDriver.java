@@ -229,4 +229,8 @@ public class ScreenDriver {
 	public void pressEnter() {
 		keyboard.type(Key.ENTER);
 	}
+	
+	public Utils utils(){
+		return null;
+	}
 }
