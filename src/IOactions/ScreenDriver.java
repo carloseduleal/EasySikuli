@@ -29,6 +29,7 @@ public class ScreenDriver {
 	public Mouse mouse = new DesktopMouse();
 	public Keyboard keyboard = new DesktopKeyboard();
 
+	private PostType postType;
 	private PostFind postFind;
 	private PostWait postWait;
 
@@ -49,8 +50,8 @@ public class ScreenDriver {
 	 *            target image and the screen (min 0.01, max 0.99);
 	 * @throws InterruptedException
 	 */
-	public void waitDisappear(final String imagePath,
-			final int timeoutInSeconds, double similarity)
+	public boolean waitDisappear(final String imagePath,
+			final int timeoutInSeconds, final double similarity)
 			throws InterruptedException {
 		ScreenRegion myDesktop = new DesktopScreenRegion();
 		File image = new File(imagePath);
@@ -64,6 +65,7 @@ public class ScreenDriver {
 			Thread.sleep(1000);
 			currentTime++;
 		} while ((myScreen != null) && (currentTime <= timeoutInSeconds));
+		return true;
 	}
 
 	/**
@@ -136,9 +138,10 @@ public class ScreenDriver {
 	 *            the text that will be written.
 	 */
 	public PostType type(final String text) {
+		postType = new PostType();
 		keyboard.type(text);
 
-		return null;
+		return postType;
 	}
 
 	/**
@@ -193,7 +196,7 @@ public class ScreenDriver {
 	 * @param imagePath
 	 *            path (in the current project) to the image to be found;
 	 */
-	public void findHightLight(String imagePath) {
+	public boolean findHightLight(String imagePath) {
 		ScreenRegion myDesktop = new DesktopScreenRegion();
 		File image = new File(imagePath);
 		Target imageTarget = new ImageTarget(image);
@@ -202,10 +205,13 @@ public class ScreenDriver {
 		ScreenRegion myScreen = myDesktop;
 		myScreen.wait(imageTarget, implicityWait);
 		myScreen = myDesktop.find(imageTarget);
-
+		if (myScreen == null) {
+			return false;
+		}
 		Canvas canvas = new DesktopCanvas();
 		canvas.addBox(myScreen).withLineWidth(4);
 		canvas.display(5);
+		return true;
 	}
 
 	/**
@@ -219,8 +225,8 @@ public class ScreenDriver {
 	 *            target image and the screen (min 0.01, max 0.99);
 	 * @param timeInSeconds
 	 */
-	public void assertImageExists(String expectedImagePath, double similarity,
-			int timeInSeconds) {
+	public boolean assertImageExists(final String expectedImagePath,
+			final double similarity,final int timeInSeconds) {
 		int timeResult = 0;
 		ScreenRegion myDesktop = new DesktopScreenRegion();
 		File image = new File(expectedImagePath);
@@ -233,8 +239,10 @@ public class ScreenDriver {
 		myScreen = myDesktop.find(imageTarget);
 		if (myScreen == null) {
 			screenShot();
+			return false;
 		}
 		Assert.assertNotNull(myScreen);
+		return true;
 	}
 
 	public void assertImageExists(String expectedImagePath, double similarity) {
@@ -288,9 +296,5 @@ public class ScreenDriver {
 
 	public void pressEnter() {
 		keyboard.type(Key.ENTER);
-	}
-
-	public Utils utils() {
-		return null;
 	}
 }

@@ -36,7 +36,7 @@ public class Utils {
 	 * 
 	 * @return CPF valid number;
 	 */
-	public String generateCpf() {
+	public static String generateCpf() {
 		String initials = "";
 		Integer number;
 		for (int i = 0; i < 9; i++) {

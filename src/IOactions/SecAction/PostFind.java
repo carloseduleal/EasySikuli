@@ -17,6 +17,7 @@ public class PostFind {
 	private double similarity;
 	private int implicityWait = 20000;
 	
+	PostType postType;
 	private Mouse mouse = new DesktopMouse();
 	private Keyboard keyboard = new DesktopKeyboard();
 
@@ -73,10 +74,11 @@ public class PostFind {
 	}
 
 	public PostType type(String text) {
+		postType = new PostType();
 		click();
 		keyboard.type(text);
 		
-		return null;
+		return postType;
 	}
 
 	public void hover(int timeInSeconds) {
