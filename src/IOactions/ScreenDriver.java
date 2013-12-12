@@ -215,45 +215,6 @@ public class ScreenDriver {
 	}
 
 	/**
-	 * This method verify if the image received in this method is show up in the
-	 * screen or not.
-	 * 
-	 * @param expectedImagePath
-	 *            path to the image to expected on the screen;
-	 * @param similarity
-	 *            similarity degree to be used on the comparison between the
-	 *            target image and the screen (min 0.01, max 0.99);
-	 * @param timeInSeconds
-	 */
-	public boolean assertImageExists(final String expectedImagePath,
-			final double similarity,final int timeInSeconds) {
-		int timeResult = 0;
-		ScreenRegion myDesktop = new DesktopScreenRegion();
-		File image = new File(expectedImagePath);
-		Target imageTarget = new ImageTarget(image);
-		imageTarget.setMinScore(similarity);
-
-		ScreenRegion myScreen = myDesktop;
-		timeResult = timeInSeconds * 1000;
-		myScreen.wait(imageTarget, timeResult);
-		myScreen = myDesktop.find(imageTarget);
-		if (myScreen == null) {
-			screenShot();
-			return false;
-		}
-		Assert.assertNotNull(myScreen);
-		return true;
-	}
-
-	public void assertImageExists(String expectedImagePath, double similarity) {
-		assertImageExists(expectedImagePath, similarity, implicityWait);
-	}
-
-	public void assertImageExists(String expectedImagePath) {
-		assertImageExists(expectedImagePath, defaultSimilarity, implicityWait);
-	}
-
-	/**
 	 * This method only press the PAUSE key. The PAUSE is the Wink (app that
 	 * receive screenShots and save as PDF) hotkey.
 	 */
