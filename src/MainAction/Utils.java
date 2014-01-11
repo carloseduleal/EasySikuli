@@ -1,4 +1,6 @@
-package IOactions;
+package MainAction;
+
+import org.junit.Test;
 
 /**
  * @author cels

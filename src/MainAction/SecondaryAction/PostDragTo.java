@@ -1,4 +1,4 @@
-package IOactions.SecAction;
+package MainAction.SecondaryAction;
 
 import org.sikuli.api.robot.Keyboard;
 import org.sikuli.script.Key;

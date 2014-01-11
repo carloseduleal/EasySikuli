@@ -1,4 +1,4 @@
-package IOactions.SecAction;
+package MainAction.SecondaryAction;
 
 import java.io.File;
 
@@ -10,6 +10,8 @@ import org.sikuli.api.robot.Keyboard;
 import org.sikuli.api.robot.Mouse;
 import org.sikuli.api.robot.desktop.DesktopKeyboard;
 import org.sikuli.api.robot.desktop.DesktopMouse;
+
+import Enum.ClickType;
 
 public class PostWait {
 
@@ -47,18 +49,18 @@ public class PostWait {
 	}
 	
 	public void click(){
-		howToclick(Enum.LEFT_CLICK);
+		howToclick(ClickType.LEFT_CLICK);
 	}
 	
 	public void rightClick(){
-		howToclick(Enum.RIGHT_CLICK);
+		howToclick(ClickType.RIGHT_CLICK);
 	}
 	
 	public void doubleClick(){
-		howToclick(Enum.DOUBLE_CLICK);
+		howToclick(ClickType.DOUBLE_CLICK);
 	}
 	
-	private void howToclick(Enum click) {
+	private void howToclick(ClickType click) {
 		ScreenRegion myDesktop = new DesktopScreenRegion();
 		File image = new File(imagePath);
 		Target imageTarget = new ImageTarget(image);

@@ -1,11 +1,9 @@
-package IOactions;
+package MainAction;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-
-import junit.framework.Assert;
 
 import org.sikuli.api.DesktopScreenRegion;
 import org.sikuli.api.ImageTarget;
@@ -20,25 +18,46 @@ import org.sikuli.api.visual.Canvas;
 import org.sikuli.api.visual.DesktopCanvas;
 import org.sikuli.script.App;
 
-import IOactions.SecAction.PostFind;
-import IOactions.SecAction.PostType;
-import IOactions.SecAction.PostWait;
+import Config.ImplicityWaitConfig;
+import MainAction.SecondaryAction.PostFind;
+import MainAction.SecondaryAction.PostType;
+import MainAction.SecondaryAction.PostWait;
 
 public class ScreenDriver {
 
 	public Mouse mouse = new DesktopMouse();
 	public Keyboard keyboard = new DesktopKeyboard();
+	
+	private double defaultSimilarity = 0.70;
+	private int implicityWait = 15000;
 
 	private PostType postType;
 	private PostFind postFind;
 	private PostWait postWait;
+	
+	public ImplicityWaitConfig config (){
+		ImplicityWaitConfig config = new ImplicityWaitConfig();
+		return config;
+	}
 
-	static int implicityWait = 20000;
-	int timeResult = 0;
-	double defaultSimilarity = 0.70;
+	public double getDefaultSimilarity() {
+		return defaultSimilarity;
+	}
+
+	public void setDefaultSimilarity(double defaultSimilarity) {
+		this.defaultSimilarity = defaultSimilarity;
+	}
+
+	public int getImplicityWait() {
+		return implicityWait;
+	}
+	
+	public void setImplicityWait(int implicityWait) {
+		this.implicityWait = implicityWait;
+	}
 
 	/**
-	 * This method waits the specfied time for an element (image) disappear from
+	 * This method waits the specified time for an element (image) disappear from
 	 * the screen.
 	 * 
 	 * @param imagePath
@@ -65,6 +84,9 @@ public class ScreenDriver {
 			Thread.sleep(1000);
 			currentTime++;
 		} while ((myScreen != null) && (currentTime <= timeoutInSeconds));
+		if(myScreen != null){
+			return false;
+		}
 		return true;
 	}
 
@@ -80,7 +102,7 @@ public class ScreenDriver {
 	 */
 	public void waitDisappear(String imagePath, int timeoutInSeconds)
 			throws InterruptedException {
-		waitDisappear(imagePath, timeoutInSeconds, defaultSimilarity);
+		waitDisappear(imagePath, timeoutInSeconds, getDefaultSimilarity());
 	}
 
 	/**
@@ -102,11 +124,14 @@ public class ScreenDriver {
 		File image = new File(imagePath);
 		Target imageTarget = new ImageTarget(image);
 		imageTarget.setMinScore(similarity);
-
+		int timeResult = 0;
+		
 		timeResult = timeInSeconds * 1000;
 		myDesktop.wait(imageTarget, timeResult);
-		myDesktop.find(imageTarget);
-
+		ScreenRegion ret = myDesktop.find(imageTarget);
+		if (ret == null){
+			return null;
+		}
 		// PostWait
 		postWait = new PostWait();
 		postWait.setImagePath(imagePath);
@@ -126,8 +151,12 @@ public class ScreenDriver {
 	 * @return postWait object returned including the parameters informed
 	 */
 	public PostWait waitFor(final String imagePath, final int timeInSeconds) {
-		postWait = waitFor(imagePath, timeInSeconds, defaultSimilarity);
-
+		postWait = new PostWait();
+		postWait = waitFor(imagePath, timeInSeconds, getDefaultSimilarity());
+		if (postWait == null){
+			return null;
+		}
+		
 		return postWait;
 	}
 
@@ -163,10 +192,12 @@ public class ScreenDriver {
 		Target imageTarget = new ImageTarget(image);
 		imageTarget.setMinScore(similarity);
 
-		myDesktop.wait(imageTarget, implicityWait);
-		myDesktop.find(imageTarget);
+		myDesktop.wait(imageTarget, getImplicityWait());
+		ScreenRegion ret = myDesktop.find(imageTarget);
+		if (ret == null){
+			return null;
+		}
 
-		// PosFind
 		postFind = new PostFind();
 		postFind.setImagePath(imagePath);
 		postFind.setSimilarity(similarity);
@@ -184,7 +215,11 @@ public class ScreenDriver {
 	 * @return postFind object returned including the parameters informed
 	 */
 	public PostFind findImage(String imagePath) {
-		postFind = findImage(imagePath, defaultSimilarity);
+		postFind = new PostFind();
+		postFind = findImage(imagePath, getDefaultSimilarity());
+		if (postFind == null){
+			return null;
+		}
 
 		return postFind;
 	}
@@ -200,10 +235,10 @@ public class ScreenDriver {
 		ScreenRegion myDesktop = new DesktopScreenRegion();
 		File image = new File(imagePath);
 		Target imageTarget = new ImageTarget(image);
-		imageTarget.setMinScore(defaultSimilarity);
+		imageTarget.setMinScore(getDefaultSimilarity());
 
 		ScreenRegion myScreen = myDesktop;
-		myScreen.wait(imageTarget, implicityWait);
+		myScreen.wait(imageTarget, getImplicityWait());
 		myScreen = myDesktop.find(imageTarget);
 		if (myScreen == null) {
 			return false;
@@ -228,12 +263,23 @@ public class ScreenDriver {
 	 * @param appAddress
 	 *            the full path of the application.
 	 *            (example:"C:\\Users\\example.exe")
+	 * 
+	 * @throws IOException 
+	 * @throws InterruptedException 
 	 */
+	public Process openApplication(String appAddress) throws IOException, InterruptedException {
+		Process ret = Runtime.getRuntime().exec(appAddress);
+		return ret;
+	}
+	
 	/**
-	 * @param appAddress
+	 * This method close the specified application opened 
+	 * 
+	 * @param processToClose
+	 * 			the openApplication's return
 	 */
-	public void openApplication(String appAddress) {
-		App.open(appAddress);
+	public void closeApplication(Process processToClose){
+		processToClose.destroy();
 	}
 
 	/**
@@ -244,9 +290,9 @@ public class ScreenDriver {
 	 * @throws URISyntaxException
 	 * @throws IOException
 	 */
-	public void openDefaultBrowse(String browseUrl) throws URISyntaxException,
+	public void openDefaultBrowser(String URL) throws URISyntaxException,
 			IOException {
-		URI url = new URI(browseUrl);
+		URI url = new URI(URL);
 		java.awt.Desktop.getDesktop().browse(url);
 	}
 
