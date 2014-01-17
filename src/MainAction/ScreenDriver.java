@@ -16,9 +16,7 @@ import org.sikuli.api.robot.desktop.DesktopKeyboard;
 import org.sikuli.api.robot.desktop.DesktopMouse;
 import org.sikuli.api.visual.Canvas;
 import org.sikuli.api.visual.DesktopCanvas;
-import org.sikuli.script.App;
-
-import Config.ImplicityWaitConfig;
+import Config.DynamicVariables;
 import MainAction.SecondaryAction.PostFind;
 import MainAction.SecondaryAction.PostType;
 import MainAction.SecondaryAction.PostWait;
@@ -28,32 +26,13 @@ public class ScreenDriver {
 	public Mouse mouse = new DesktopMouse();
 	public Keyboard keyboard = new DesktopKeyboard();
 	
-	private double defaultSimilarity = 0.70;
-	private int implicityWait = 15000;
-
 	private PostType postType;
 	private PostFind postFind;
 	private PostWait postWait;
+	private static DynamicVariables config = new DynamicVariables();
 	
-	public ImplicityWaitConfig config (){
-		ImplicityWaitConfig config = new ImplicityWaitConfig();
+	public DynamicVariables config (){
 		return config;
-	}
-
-	public double getDefaultSimilarity() {
-		return defaultSimilarity;
-	}
-
-	public void setDefaultSimilarity(double defaultSimilarity) {
-		this.defaultSimilarity = defaultSimilarity;
-	}
-
-	public int getImplicityWait() {
-		return implicityWait;
-	}
-	
-	public void setImplicityWait(int implicityWait) {
-		this.implicityWait = implicityWait;
 	}
 
 	/**
@@ -102,7 +81,7 @@ public class ScreenDriver {
 	 */
 	public void waitDisappear(String imagePath, int timeoutInSeconds)
 			throws InterruptedException {
-		waitDisappear(imagePath, timeoutInSeconds, getDefaultSimilarity());
+		waitDisappear(imagePath, timeoutInSeconds, config.getDefaultSimilarity());
 	}
 
 	/**
@@ -152,7 +131,7 @@ public class ScreenDriver {
 	 */
 	public PostWait waitFor(final String imagePath, final int timeInSeconds) {
 		postWait = new PostWait();
-		postWait = waitFor(imagePath, timeInSeconds, getDefaultSimilarity());
+		postWait = waitFor(imagePath, timeInSeconds, config.getDefaultSimilarity());
 		if (postWait == null){
 			return null;
 		}
@@ -192,8 +171,9 @@ public class ScreenDriver {
 		Target imageTarget = new ImageTarget(image);
 		imageTarget.setMinScore(similarity);
 
-		myDesktop.wait(imageTarget, getImplicityWait());
-		ScreenRegion ret = myDesktop.find(imageTarget);
+		myDesktop.wait(imageTarget, config.getImplicityWait());
+		ScreenRegion ret = myDesktop;
+		ret = myDesktop.find(imageTarget);
 		if (ret == null){
 			return null;
 		}
@@ -216,11 +196,12 @@ public class ScreenDriver {
 	 */
 	public PostFind findImage(String imagePath) {
 		postFind = new PostFind();
-		postFind = findImage(imagePath, getDefaultSimilarity());
+		
+		postFind = findImage(imagePath, config.getDefaultSimilarity());
 		if (postFind == null){
 			return null;
 		}
-
+		
 		return postFind;
 	}
 
@@ -235,10 +216,10 @@ public class ScreenDriver {
 		ScreenRegion myDesktop = new DesktopScreenRegion();
 		File image = new File(imagePath);
 		Target imageTarget = new ImageTarget(image);
-		imageTarget.setMinScore(getDefaultSimilarity());
+		imageTarget.setMinScore(config.getDefaultSimilarity());
 
 		ScreenRegion myScreen = myDesktop;
-		myScreen.wait(imageTarget, getImplicityWait());
+		myScreen.wait(imageTarget, config.getImplicityWait());
 		myScreen = myDesktop.find(imageTarget);
 		if (myScreen == null) {
 			return false;
